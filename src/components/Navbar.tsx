@@ -29,7 +29,7 @@ export default function Navbar() {
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
 
-        <Link href="/" className="font-display text-xl md:text-xl tracking-widest-plus text-beige">
+        <Link href="/" className="font-display flex items-center gap-2 text-xl md:text-xl tracking-widest-plus text-beige">
           <Image src="/logo.png" alt="Logo" width={120} height={40} className="object-contain" />
           <p>D_ALLURE</p>
         </Link>
