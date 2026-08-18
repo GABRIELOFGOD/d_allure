@@ -1,0 +1,49 @@
+{
+  "name": "d-allure",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "create-admin": "tsx scripts/create-admin.ts"
+  },
+  "dependencies": {
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^1.12.98",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
+    "date-fns": "^4.4.0",
+    "dotenv": "^17.4.2",
+    "framer-motion": "^13.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^1.31.0",
+    "mongoose": "^9.9.2",
+    "next": "16.3.1",
+    "next-cloudinary": "^6.18.8",
+    "nodemailer": "^9.0.5",
+    "pdfkit": "^0.19.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-fast-marquee": "^1.6.5",
+    "react-hot-toast": "^2.6.0",
+    "recharts": "^3.10.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20",
+    "@types/nodemailer": "^8.0.1",
+    "@types/pdfkit": "^0.17.6",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.1",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.12",
+    "typescript": "^5"
+  }
+}
