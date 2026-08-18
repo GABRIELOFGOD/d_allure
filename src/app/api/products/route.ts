@@ -40,12 +40,14 @@ export async function POST(req: NextRequest) {
         }
       } else if (body.discountPercent) {
         // Old format with discount percent
-        discountPercent = body.discountPercent;
-        discountPrice = applyDiscount(body.price, discountPercent);
+        const percent = Number(body.discountPercent);
+        discountPercent = percent;
+        discountPrice = applyDiscount(body.price, percent);
       } else {
         // Random discount
-        discountPercent = randomDiscountPercent();
-        discountPrice = applyDiscount(body.price, discountPercent);
+        const percent = randomDiscountPercent();
+        discountPercent = percent;
+        discountPrice = applyDiscount(body.price, percent);
       }
     }
 
