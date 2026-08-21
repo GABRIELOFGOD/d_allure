@@ -5,6 +5,7 @@ import Category from "@/models/Category";
 import Hero from "@/components/Hero";
 import ProductCard from "@/components/ProductCard";
 import type { Product as ProductType, Category as CategoryType } from "@/types";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -63,16 +64,14 @@ export default async function Home() {
               <Link
                 key={cat._id}
                 href={`/shop?category=${cat._id}`}
-                className="group relative aspect-[4/3] bg-surface border border-line overflow-hidden flex items-end p-5"
+                className="group relative aspect-3/4 bg-surface border border-line overflow-hidden flex items-end p-5"
               >
-                {cat.image && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={cat.image}
+                  <Image
+                    src={cat.image ? cat.image : "/logo.png"}
                     alt={cat.name}
+                    fill
                     className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity"
                   />
-                )}
                 <span className="relative font-display text-lg text-beige">{cat.name}</span>
               </Link>
             ))}

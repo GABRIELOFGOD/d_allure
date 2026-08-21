@@ -10,7 +10,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/product/${product.slug}`} className="group block">
-      <div className="relative aspect-[3/4] bg-surface overflow-hidden">
+      <div className="relative aspect-3/4 bg-surface overflow-hidden">
         {product.images?.[0] ? (
           <Image
             src={product.images[0]}
@@ -20,9 +20,13 @@ export default function ProductCard({ product }: { product: Product }) {
             sizes="(max-width: 768px) 50vw, 25vw"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-beige-dim font-display text-sm">
-            D_ALLURE
-          </div>
+          <Image
+            src="/logo.png"
+            alt={product.name}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            sizes="(max-width: 768px) 50vw, 25vw"
+          />
         )}
         {hasDiscount && (
           <span className="absolute top-3 left-3 bg-burgundy text-white text-[10px] font-mono tracking-widest-plus uppercase px-2 py-1">

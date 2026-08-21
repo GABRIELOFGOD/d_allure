@@ -18,7 +18,7 @@ export default function ProductGallery({
 
   return (
     <div>
-      <div className="relative aspect-[3/4] bg-surface overflow-hidden mb-3">
+      <div className="relative aspect-3/4 bg-surface overflow-hidden mb-3">
         {!current ? (
           <div className="absolute inset-0 flex items-center justify-center text-beige-dim font-display">
             D_ALLURE
@@ -35,9 +35,8 @@ export default function ProductGallery({
             <button
               key={i}
               onClick={() => setActive(i)}
-              className={`relative shrink-0 w-16 h-20 bg-surface border ${
-                i === active ? "border-beige" : "border-line"
-              }`}
+              className={`relative shrink-0 w-16 h-20 bg-surface border ${i === active ? "border-beige" : "border-line"
+                }`}
             >
               {m.type === "image" ? (
                 <Image src={m.src} alt="" fill className="object-cover" sizes="64px" />

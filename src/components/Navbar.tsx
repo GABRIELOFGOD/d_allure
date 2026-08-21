@@ -31,7 +31,7 @@ export default function Navbar() {
 
         <Link href="/" className="font-display flex items-center gap-2 text-xl md:text-xl tracking-widest-plus text-beige">
           <Image src="/logo.png" alt="Logo" width={120} height={40} className="object-contain" />
-          <p>D_ALLURE</p>
+          <p className="hidden md:flex">D_ALLURE</p>
         </Link>
 
         <nav className="hidden md:flex items-center gap-10 font-mono text-[11px] tracking-widest-plus uppercase text-beige-dim">

@@ -5,15 +5,14 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative w-full h-[92vh] min-h-[640px] overflow-hidden bg-void">
-      <div className="absolute inset-0">
+    <section className="flex w-full flex-col overflow-hidden bg-void md:min-h-[640px] md:flex-row">
+      <div className="relative order-1 h-[58vh] min-h-[420px] w-full md:order-2 md:h-[92vh] md:w-1/2">
         <Spline scene="https://prod.spline.design/sMCP0g1ssiU-610i/scene.splinecode" />
+
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/40 to-transparent" />
       </div>
 
-      {/* Gradient scrim so text stays legible over the 3D scene without flattening it */}
-      <div className="absolute inset-0 bg-gradient-to-t from-void via-void/10 to-transparent pointer-events-none" />
-
-      <div className="relative z-10 h-full flex flex-col justify-end px-6 md:px-12 pb-20 pointer-events-none">
+      <div className="order-2 flex min-h-[420px] w-full flex-col justify-center px-6 py-16 md:order-1 md:min-h-0 md:w-1/2 md:px-12 md:py-20">
         <p className="font-mono text-[11px] tracking-widest-plus uppercase text-beige-dim mb-4">
           Personalized Perfume Oils
         </p>
@@ -22,7 +21,7 @@ export default function Hero() {
           <br />
           Stay Unforgettable.
         </h1>
-        <div className="mt-8 pointer-events-auto">
+        <div className="mt-8">
           <Link
             href="/shop"
             className="inline-block bg-burgundy hover:bg-burgundy-bright text-white px-8 py-4 font-mono text-xs tracking-widest-plus uppercase transition-colors"
