@@ -64,7 +64,7 @@ export default async function Home() {
               <Link
                 key={cat._id}
                 href={`/shop?category=${cat._id}`}
-                className="group relative aspect-3/4 bg-surface border border-line overflow-hidden flex items-end p-5"
+                className="group relative aspect-4/4 bg-surface border border-line overflow-hidden flex items-end p-5"
               >
                   <Image
                     src={cat.image ? cat.image : "/logo.png"}
