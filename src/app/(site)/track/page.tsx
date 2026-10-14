@@ -82,6 +82,14 @@ function TrackContent() {
                 {new Date(order.createdAt).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}
               </span>
             </div>
+            <div className="mt-2 flex justify-between">
+              <span className="font-mono text-[11px] uppercase tracking-widest-plus text-beige-dim">Payment</span>
+              <span className={`font-mono text-xs uppercase tracking-wider ${
+                order.paymentStatus === "paid" ? "text-green-400" : order.paymentStatus === "refunded" ? "text-burgundy-bright" : "text-beige-dim"
+              }`}>
+                {order.paymentStatus || "unpaid"}
+              </span>
+            </div>
           </div>
 
           {isCancelled ? (

@@ -23,37 +23,38 @@ export default function Footer() {
   const tiktok = process.env.NEXT_PUBLIC_TIKTOK || "https://tiktok.com/@d_allure";
 
   return (
-    <footer className="border-t border-line bg-surface mt-24">
-      <div className="max-w-6xl mx-auto px-6 md:px-10 py-14 grid gap-10 md:grid-cols-3">
+    <footer className="border-t border-line bg-surface">
+      <div className="mx-auto grid max-w-[1440px] gap-10 px-6 py-12 md:grid-cols-[1.5fr_1fr_1fr] md:px-10 md:py-16 lg:px-16">
         <div>
-          <div className="font-display text-xl tracking-widest-plus text-beige">D_ALLURE</div>
-          <p className="font-mono text-[11px] tracking-widest-plus uppercase text-beige-dim mt-3">
-            Smell expensive, stay unforgettable
+          <div className="font-display text-2xl tracking-[0.16em] text-beige">D_ALLURE</div>
+          <p className="mt-3 max-w-xs text-xs leading-6 text-beige-dim">
+            Personalized perfume oils for a presence that stays with you.
           </p>
         </div>
 
-        <div className="font-mono text-xs tracking-widest-plus uppercase text-beige-dim">
-          <div className="text-beige mb-3">Navigate</div>
-          <div className="flex flex-col gap-2">
-            <Link href="/shop" className="hover:text-beige transition-colors">Shop</Link>
-            <Link href="/track" className="hover:text-beige transition-colors">Track Order</Link>
+        <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-beige-dim">
+          <div className="mb-4 text-beige">Explore</div>
+          <div className="flex flex-col gap-3">
+            <Link href="/shop" className="transition-colors hover:text-beige">Shop all scents</Link>
+            <Link href="/track" className="transition-colors hover:text-beige">Track an order</Link>
           </div>
         </div>
 
-        <div className="font-mono text-xs tracking-widest-plus uppercase text-beige-dim">
-          <div className="text-beige mb-3">Follow</div>
+        <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-beige-dim">
+          <div className="mb-4 text-beige">Stay in the know</div>
           <div className="flex items-center gap-4">
-            <a href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-beige transition-colors">
+            <a href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="transition-colors hover:text-beige">
               <InstagramIcon />
             </a>
-            <a href={tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="hover:text-beige transition-colors">
+            <a href={tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="transition-colors hover:text-beige">
               <TikTokIcon />
             </a>
           </div>
         </div>
       </div>
-      <div className="border-t border-line px-6 md:px-10 py-5 font-mono text-[10px] tracking-widest-plus uppercase text-beige-dim/70 text-center">
-        &copy; {new Date().getFullYear()} D_ALLURE. All rights reserved.
+      <div className="flex flex-col gap-2 border-t border-line px-6 py-5 font-mono text-[8px] uppercase tracking-[0.15em] text-beige-dim/70 sm:flex-row sm:items-center sm:justify-between md:px-10 lg:px-16">
+        <span>&copy; {new Date().getFullYear()} D_ALLURE. All rights reserved.</span>
+        <span>Smell expensive, stay unforgettable.</span>
       </div>
     </footer>
   );

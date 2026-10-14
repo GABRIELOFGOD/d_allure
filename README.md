@@ -28,7 +28,15 @@ npm run create-admin
 
 This reads `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env.local` and creates (or resets) that admin. Log in at `/dashboard/login`, then change the password from there if you'd like.
 
-## 4. Run locally
+## 4. Optional: seed a test fragrance catalog
+
+```
+npm run seed-test-catalog
+```
+
+This idempotently adds 60 test fragrance listings across six categories, at a sample price of ₦15,000 with 10 units in stock each. It creates original local SVG bottle illustrations under `public/test-catalog/`; no third-party product photos are copied. Product names are factual fragrance references from official TOM FORD, KAYALI, Diptyque, and Jo Malone London catalogs. Listings are explicitly marked as test data; replace their names, descriptions, pricing, inventory, and images before launch.
+
+## 5. Run locally
 
 ```
 npm run dev
@@ -37,7 +45,7 @@ npm run dev
 Storefront: http://localhost:3000
 Admin dashboard: http://localhost:3000/dashboard/login
 
-## 5. Deploy
+## 6. Deploy
 
 Any Node host works (Vercel, DigitalOcean App Platform, etc.). Set the same environment variables there, and make sure your MongoDB Atlas cluster's Network Access allows connections from your host (Atlas → Network Access → Add IP Address → Allow Access from Anywhere, or your host's static IPs).
 
@@ -46,6 +54,7 @@ Any Node host works (Vercel, DigitalOcean App Platform, etc.). Set the same envi
 - **Storefront**: futuristic landing page with the Spline 3D hero, live announcement marquee, shop grid with category filters, product detail pages (image/video gallery, customizable name field with a remembered/auto-filled name via localStorage, verified-buyer reviews), cart (localStorage-based, no accounts), checkout modal (name/email/phone/address/note, coupon codes), order confirmation with tracking ID + "Continue on WhatsApp" handoff, and a public order tracking page with a downloadable PDF receipt (available once an order is delivered or cancelled).
 - **Admin dashboard** (`/dashboard`, JWT-protected via `src/proxy.ts`): overview with revenue/order charts and a CSV export, products (with Cloudinary image/video upload, discount toggle with random-or-manual %, customizable toggle), categories, orders (status changes trigger customer emails, receipt download at any status), coupons, announcements (marquee content), review moderation, customers (auto-collected from orders, deduped by email), and a newsletter composer (all subscribers / single / custom selection).
 - **Emails** (Nodemailer + Gmail): order confirmation, order status change, newsletter — all using a shared branded HTML template.
+- **Inventory and payments**: checkout reserves available stock atomically; cancelling an order returns its stock, and reopening it reserves stock again. Admins record payment when it is received and record a refund after cancelling a paid order. Dashboard net revenue, collections, refunds, active order value, paid product sales, and customer spend are tracked separately.
 
 ## Notes
 

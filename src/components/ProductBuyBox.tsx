@@ -44,33 +44,34 @@ export default function ProductBuyBox({ product }: { product: Product }) {
 
   return (
     <div>
-      <div className="flex items-center gap-3 font-mono text-sm mb-6">
+      <div className="mb-5 flex items-center gap-3 font-mono text-sm">
         {hasDiscount ? (
           <>
-            <span className="text-beige text-lg">{formatNaira(product.discountPrice!)}</span>
+            <span className="text-lg text-beige">{formatNaira(product.discountPrice!)}</span>
             <span className="text-beige-dim line-through">{formatNaira(product.price)}</span>
-            <span className="text-burgundy-bright text-xs">-{product.discountPercent}%</span>
+            <span className="bg-burgundy/40 px-2 py-1 text-[10px] text-beige">-{product.discountPercent}%</span>
           </>
         ) : (
-          <span className="text-beige text-lg">{formatNaira(product.price)}</span>
+          <span className="text-lg text-beige">{formatNaira(product.price)}</span>
         )}
       </div>
 
       {product.customizable && (
-        <div className="mb-6">
-          <label className="font-mono text-[11px] uppercase tracking-widest-plus text-beige-dim mb-2 block">
-            Name to Engrave
+        <div className="mb-5">
+          <label htmlFor="engraving-name" className="mb-2 block font-mono text-[9px] uppercase tracking-[0.16em] text-beige-dim">
+            Name to engrave
           </label>
           <input
+            id="engraving-name"
             value={customName}
             onChange={(e) => setCustomName(e.target.value)}
             placeholder="e.g. Amara"
-            className="w-full bg-surface-raised border border-line px-3 py-3 text-sm text-beige focus:border-beige-dim outline-none"
+            className="w-full border border-line bg-surface-raised px-4 py-3.5 text-sm text-beige outline-none transition-colors placeholder:text-beige-dim/55 focus:border-beige-dim"
           />
           {savedCustomName && (
             <button
               onClick={() => setCustomName("")}
-              className="font-mono text-[10px] text-beige-dim hover:text-beige uppercase tracking-widest-plus mt-2"
+              className="mt-2 font-mono text-[9px] uppercase tracking-[0.14em] text-beige-dim transition-colors hover:text-beige"
             >
               Clear saved name
             </button>
@@ -78,20 +79,21 @@ export default function ProductBuyBox({ product }: { product: Product }) {
         </div>
       )}
 
-      <div className="flex items-center gap-4 mb-6">
-        <span className="font-mono text-[11px] uppercase tracking-widest-plus text-beige-dim">Qty</span>
+      <div className="mb-5 flex items-center justify-between">
+        <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-beige-dim">Quantity</span>
         <div className="flex items-center border border-line">
           <button
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            className="w-9 h-9 text-beige-dim hover:text-beige"
+            className="h-10 w-10 text-beige-dim transition-colors hover:text-beige"
             aria-label="Decrease quantity"
           >
             −
           </button>
-          <span className="w-8 text-center font-mono text-sm">{quantity}</span>
+          <span className="w-8 text-center font-mono text-xs">{quantity}</span>
           <button
-            onClick={() => setQuantity((q) => q + 1)}
-            className="w-9 h-9 text-beige-dim hover:text-beige"
+            onClick={() => setQuantity((q) => Math.min(product.stock, q + 1))}
+            disabled={quantity >= product.stock}
+            className="h-10 w-10 text-beige-dim transition-colors hover:text-beige disabled:cursor-not-allowed disabled:opacity-40"
             aria-label="Increase quantity"
           >
             +
@@ -102,10 +104,13 @@ export default function ProductBuyBox({ product }: { product: Product }) {
       <button
         onClick={handleAddToCart}
         disabled={outOfStock}
-        className="w-full bg-burgundy hover:bg-burgundy-bright disabled:bg-line disabled:text-beige-dim text-white py-4 font-mono text-xs tracking-widest-plus uppercase transition-colors"
+        className="w-full bg-burgundy py-4 font-mono text-[10px] uppercase tracking-[0.18em] text-white transition-colors hover:bg-burgundy-bright disabled:cursor-not-allowed disabled:bg-line disabled:text-beige-dim"
       >
-        {outOfStock ? "Out of Stock" : "Add to Bag"}
+        {outOfStock ? "Out of stock" : "Add to bag"}
       </button>
+      <p className="mt-3 text-center font-mono text-[8px] uppercase tracking-[0.12em] text-beige-dim">
+        {outOfStock ? "Currently unavailable" : `${product.stock} ${product.stock === 1 ? "bottle" : "bottles"} available`}
+      </p>
     </div>
   );
 }

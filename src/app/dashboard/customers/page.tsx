@@ -32,7 +32,10 @@ export default function CustomersPage() {
                 <p className="font-mono text-[10px] text-beige-dim uppercase tracking-wider">{c.email} · {c.phone}</p>
               </div>
               <div className="font-mono text-xs text-beige-dim shrink-0">{c.orderCount} orders</div>
-              <div className="font-mono text-sm text-beige shrink-0">{formatNaira(c.totalSpent)}</div>
+              <div className="shrink-0 text-right">
+                <p className="font-mono text-sm text-beige">{formatNaira(c.totalSpent)}</p>
+                <p className="mt-1 font-mono text-[8px] uppercase tracking-wider text-beige-dim">Paid total</p>
+              </div>
             </div>
           ))}
         </div>

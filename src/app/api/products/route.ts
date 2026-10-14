@@ -73,3 +73,30 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  const admin = requireAdmin(req);
+  if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
+
+  if (
+    typeof body !== "object" ||
+    body === null ||
+    !("ids" in body) ||
+    !Array.isArray(body.ids) ||
+    body.ids.length === 0 ||
+    !body.ids.every((id): id is string => typeof id === "string" && /^[0-9a-fA-F]{24}$/.test(id))
+  ) {
+    return NextResponse.json({ error: "Provide one or more valid product IDs" }, { status: 400 });
+  }
+
+  await connectDB();
+  const result = await Product.deleteMany({ _id: { $in: [...new Set(body.ids)] } });
+  return NextResponse.json({ deletedCount: result.deletedCount });
+}

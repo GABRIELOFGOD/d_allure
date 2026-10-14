@@ -1,6 +1,7 @@
 import { Schema, models, model } from "mongoose";
 
 export type OrderStatus = "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
+export type PaymentStatus = "unpaid" | "paid" | "refunded";
 
 export interface IOrderItem {
   product: Schema.Types.ObjectId;
@@ -19,6 +20,10 @@ export interface IOrder {
   discount: number;
   couponCode?: string;
   total: number;
+  paymentStatus: PaymentStatus;
+  paidAt?: Date;
+  refundedAt?: Date;
+  inventoryReserved: boolean;
   customer: {
     name: string;
     email: string;
@@ -51,6 +56,10 @@ const OrderSchema = new Schema<IOrder>(
     discount: { type: Number, default: 0 },
     couponCode: { type: String },
     total: { type: Number, required: true },
+    paymentStatus: { type: String, enum: ["unpaid", "paid", "refunded"], default: "unpaid", required: true },
+    paidAt: { type: Date },
+    refundedAt: { type: Date },
+    inventoryReserved: { type: Boolean, default: false, required: true },
     customer: {
       name: { type: String, required: true },
       email: { type: String, required: true },

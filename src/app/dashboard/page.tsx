@@ -7,6 +7,11 @@ import { formatNaira } from "@/lib/format";
 
 interface Analytics {
   totalRevenue: number;
+  collectedRevenue: number;
+  totalRefunds: number;
+  orderValue: number;
+  paidOrderCount: number;
+  unitsSold: number;
   totalOrders: number;
   productCount: number;
   customerCount: number;
@@ -46,18 +51,23 @@ export default function DashboardOverviewPage() {
         </a>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
-        <StatCard label="Revenue" value={formatNaira(data.totalRevenue)} />
+      <div className="mb-10 grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5">
+        <StatCard label="Net revenue" value={formatNaira(data.totalRevenue)} />
+        <StatCard label="Collected" value={formatNaira(data.collectedRevenue)} />
+        <StatCard label="Refunds" value={formatNaira(data.totalRefunds)} />
+        <StatCard label="Active order value" value={formatNaira(data.orderValue)} />
         <StatCard label="Orders" value={String(data.totalOrders)} />
+        <StatCard label="Paid orders" value={String(data.paidOrderCount)} />
+        <StatCard label="Units sold" value={String(data.unitsSold)} />
         <StatCard label="Products" value={String(data.productCount)} />
         <StatCard label="Customers" value={String(data.customerCount)} />
-        <StatCard label="Avg Rating" value={data.avgRating ? `${data.avgRating} / 5` : "—"} />
+        <StatCard label="Avg rating" value={data.avgRating ? `${data.avgRating} / 5` : "—"} />
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 mb-10">
         <div className="border border-line p-5">
           <p className="font-mono text-[11px] text-beige-dim uppercase tracking-widest-plus mb-4">
-            Revenue — Last 14 Days
+            Net payments — Last 14 Days
           </p>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={revenueChartData}>

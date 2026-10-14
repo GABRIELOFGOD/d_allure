@@ -40,7 +40,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   doc.fontSize(10).fillColor("#444");
   doc.text(`Tracking ID: ${order.trackingId}`, 50, 140);
   doc.text(`Status: ${order.status.toUpperCase()}`, 50, 156);
-  doc.text(`Date: ${new Date(order.createdAt).toLocaleString("en-NG")}`, 50, 172);
+  doc.text(`Payment: ${(order.paymentStatus || "unpaid").toUpperCase()}`, 50, 172);
+  doc.text(`Date: ${new Date(order.createdAt).toLocaleString("en-NG")}`, 50, 188);
 
   doc.text(`Customer: ${order.customer.name}`, 320, 140);
   doc.text(`Email: ${order.customer.email}`, 320, 156);

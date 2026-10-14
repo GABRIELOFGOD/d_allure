@@ -111,7 +111,7 @@ export default function CheckoutModal({ onClose }: { onClose: () => void }) {
             <p className="font-mono text-xs text-beige-dim uppercase tracking-widest-plus mb-1">Tracking ID</p>
             <p className="font-mono text-lg text-beige tracking-widest-plus mb-6">{completedOrder.trackingId}</p>
             <p className="text-sm text-beige-dim mb-6">
-              A confirmation has been sent to your email. Continue on WhatsApp to complete payment.
+              A confirmation has been sent to your email. Your items are reserved while you continue on WhatsApp to pay.
             </p>
             <a
               href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}

@@ -45,6 +45,7 @@ export interface OrderItem {
 }
 
 export type OrderStatus = "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
+export type PaymentStatus = "unpaid" | "paid" | "refunded";
 
 export interface Order {
   _id: string;
@@ -54,6 +55,9 @@ export interface Order {
   discount: number;
   couponCode?: string;
   total: number;
+  paymentStatus: PaymentStatus;
+  paidAt?: string;
+  refundedAt?: string;
   customer: {
     name: string;
     email: string;

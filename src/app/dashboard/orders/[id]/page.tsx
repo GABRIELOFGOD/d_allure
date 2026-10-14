@@ -30,18 +30,40 @@ export default function OrderDetailPage() {
 
   async function changeStatus(status: OrderStatus) {
     setUpdating(true);
-    const res = await fetch(`/api/orders/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    });
-    if (res.ok) {
-      setOrder(await res.json());
+    try {
+      const res = await fetch(`/api/orders/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Couldn't update status");
+      setOrder(data);
       toast.success(`Order marked as ${status}`);
-    } else {
-      toast.error("Couldn't update status");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Couldn't update status");
+    } finally {
+      setUpdating(false);
     }
-    setUpdating(false);
+  }
+
+  async function changePaymentStatus(paymentStatus: "paid" | "refunded") {
+    setUpdating(true);
+    try {
+      const res = await fetch(`/api/orders/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentStatus }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Couldn't update payment");
+      setOrder(data);
+      toast.success(paymentStatus === "paid" ? "Payment recorded" : "Refund recorded");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Couldn't update payment");
+    } finally {
+      setUpdating(false);
+    }
   }
 
   if (loading) return <p className="font-mono text-sm text-beige-dim">Loading…</p>;
@@ -79,6 +101,41 @@ export default function OrderDetailPage() {
               {updating && order.status !== s ? <Loader2 size={11} className="animate-spin inline" /> : s}
             </button>
           ))}
+        </div>
+      </div>
+
+      <div className="border border-line p-5 mb-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="font-mono text-[11px] text-beige-dim uppercase tracking-widest-plus mb-2">Payment</p>
+            <p className={`font-mono text-xs uppercase tracking-wider ${
+              order.paymentStatus === "paid" ? "text-green-400" : order.paymentStatus === "refunded" ? "text-burgundy-bright" : "text-beige-dim"
+            }`}>
+              {order.paymentStatus}
+            </p>
+            {order.paidAt && <p className="mt-1 text-xs text-beige-dim">Paid {new Date(order.paidAt).toLocaleString("en-NG")}</p>}
+            {order.refundedAt && <p className="mt-1 text-xs text-beige-dim">Refunded {new Date(order.refundedAt).toLocaleString("en-NG")}</p>}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {order.paymentStatus === "unpaid" && order.status !== "cancelled" && (
+              <button
+                onClick={() => changePaymentStatus("paid")}
+                disabled={updating}
+                className="border border-line px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-beige hover:border-beige-dim disabled:opacity-50"
+              >
+                {updating ? <Loader2 size={12} className="animate-spin" /> : "Record payment"}
+              </button>
+            )}
+            {order.paymentStatus === "paid" && order.status === "cancelled" && (
+              <button
+                onClick={() => changePaymentStatus("refunded")}
+                disabled={updating}
+                className="border border-burgundy-bright px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-beige hover:bg-burgundy disabled:opacity-50"
+              >
+                {updating ? <Loader2 size={12} className="animate-spin" /> : "Record refund"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
 

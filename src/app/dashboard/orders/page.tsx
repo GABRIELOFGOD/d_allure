@@ -67,8 +67,15 @@ export default function OrdersListPage() {
                 <p className="font-mono text-[10px] text-beige-dim uppercase tracking-wider">{o.customer.email}</p>
               </div>
               <div className="font-mono text-sm text-beige-dim shrink-0">{formatNaira(o.total)}</div>
-              <div className={`font-mono text-[11px] uppercase tracking-wider w-24 shrink-0 text-right ${STATUS_COLORS[o.status]}`}>
-                {o.status}
+              <div className="w-28 shrink-0 text-right">
+                <p className={`font-mono text-[11px] uppercase tracking-wider ${STATUS_COLORS[o.status]}`}>
+                  {o.status}
+                </p>
+                <p className={`mt-1 font-mono text-[9px] uppercase tracking-wider ${
+                  o.paymentStatus === "paid" ? "text-green-400" : o.paymentStatus === "refunded" ? "text-burgundy-bright" : "text-beige-dim"
+                }`}>
+                  {o.paymentStatus || "unpaid"}
+                </p>
               </div>
             </Link>
           ))}

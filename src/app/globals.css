@@ -40,7 +40,9 @@ html {
 }
 
 body {
-  background: var(--color-void);
+  background:
+    radial-gradient(ellipse at 50% -20%, rgba(92, 10, 31, 0.14), transparent 42%),
+    var(--color-void);
   color: var(--color-beige);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -60,6 +62,11 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--color-burgundy);
   border-radius: 0;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .font-display {
