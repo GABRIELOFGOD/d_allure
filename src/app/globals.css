@@ -1,6 +1,142 @@
 @import "tailwindcss";
 
 :root {
+  --color-void: #100b0a;
+  --color-surface: #1b1211;
+  --color-surface-raised: #261918;
+  --color-line: #422727;
+  --color-beige: #f1b686;
+  --color-beige-dim: #bd8c6b;
+  --color-burgundy: #521617;
+  --color-burgundy-bright: #812a2b;
+  --color-white: #fff3e8;
+
+  --font-display: var(--font-bodoni), "Times New Roman", serif;
+  --font-body: var(--font-manrope), system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
+}
+
+@theme inline {
+  --color-void: var(--color-void);
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-line: var(--color-line);
+  --color-beige: var(--color-beige);
+  --color-beige-dim: var(--color-beige-dim);
+  --color-burgundy: var(--color-burgundy);
+  --color-burgundy-bright: var(--color-burgundy-bright);
+  --color-white: var(--color-white);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 50% -20%, rgba(82, 22, 23, 0.2), transparent 42%),
+    var(--color-void);
+  color: var(--color-beige);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-burgundy);
+  color: var(--color-white);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-burgundy);
+  border-radius: 0;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.tracking-widest-plus {
+  letter-spacing: 0.28em;
+}
+
+/* Marquee / transmission strip -- the signature element */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(129, 42, 43, 0.6);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 0 6px rgba(129, 42, 43, 0);
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  .pulse-dot {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 1px solid var(--color-beige);
+  outline-offset: 3px;
+}
+
+
+/* @import "tailwindcss";
+
+:root {
   --color-void: #0b0807;
   --color-surface: #16100d;
   --color-surface-raised: #1e1512;
@@ -80,7 +216,6 @@ a {
   letter-spacing: 0.28em;
 }
 
-/* Marquee / transmission strip -- the signature element */
 .marquee-track {
   display: flex;
   width: max-content;
@@ -131,4 +266,4 @@ textarea:focus-visible,
 select:focus-visible {
   outline: 1px solid var(--color-beige);
   outline-offset: 3px;
-}
+} */

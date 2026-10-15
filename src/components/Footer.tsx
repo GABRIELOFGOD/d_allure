@@ -24,11 +24,11 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="mx-auto grid max-w-[1440px] gap-10 px-6 py-12 md:grid-cols-[1.5fr_1fr_1fr] md:px-10 md:py-16 lg:px-16">
+      <div className="mx-auto grid max-w-360 gap-10 px-6 py-12 md:grid-cols-[1.5fr_1fr_1fr] md:px-10 md:py-16 lg:px-16">
         <div>
           <div className="font-display text-2xl tracking-[0.16em] text-beige">D_ALLURE</div>
           <p className="mt-3 max-w-xs text-xs leading-6 text-beige-dim">
-            Personalized perfume oils for a presence that stays with you.
+            Premium perfume oils, a lasting impression.
           </p>
         </div>
 

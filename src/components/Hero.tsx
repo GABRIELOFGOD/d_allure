@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import Spline from "@splinetool/react-spline/next";
 import Link from "next/link";
@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section className="relative isolate overflow-hidden border-b border-line bg-void">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_75%_48%,rgba(92,10,31,0.2),transparent_45%)]" />
-      <div className="mx-auto grid min-h-[680px] max-w-[1440px] items-center px-6 py-10 sm:px-10 lg:min-h-[720px] lg:grid-cols-[0.92fr_1.08fr] lg:px-16">
+      <div className="mx-auto grid min-h-170 max-w-360 items-center px-6 py-10 sm:px-10 lg:min-h-180 lg:grid-cols-[0.92fr_1.08fr] lg:px-16">
         <div className="relative z-10 order-1 max-w-2xl pb-10 pt-6 lg:py-20">
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-4 py-2 text-beige-dim">
             <Sparkles size={13} className="text-burgundy-bright" />
@@ -16,16 +16,15 @@ export default function Hero() {
               Personalized perfume oils
             </span>
           </div>
-          <h1 className="font-display text-[clamp(3.65rem,7.7vw,7.2rem)] leading-[0.86] tracking-[-0.055em] text-beige">
-            Wear your
+          <h1 className="font-display text-[clamp(3.65rem,7.7vw,7.2rem)] leading-[0.90] tracking-[-0.055em] text-beige">
+            Your scent
             <br />
-            <span className="text-beige-dim">own kind</span>
+            <span className="text-beige-dim">your signature</span>
             <br />
-            of allure.
+            your ALLURE.
           </h1>
           <p className="mt-7 max-w-md text-sm leading-7 text-beige-dim sm:text-base">
-            Find a scent that feels like you. Make it even more personal with a name
-            engraved just for you.
+            Find a fragrance that matches your personality and make it uniquely yours with a personalized bottle.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-5">
             <Link
@@ -50,8 +49,8 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative order-2 h-[360px] min-h-0 overflow-hidden sm:h-[470px] lg:h-[650px]">
-          <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-void/45 via-transparent to-void/10 lg:bg-gradient-to-r lg:from-void/25 lg:via-transparent lg:to-transparent" />
+        <div className="relative flex right-auto md:ml-5 order-2 h-90 min-h-0 overflow-hidden sm:h-117.5 lg:h-162.5">
+          <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-void/45 via-transparent to-void/10 lg:bg-linear-to-r lg:from-void/25 lg:via-transparent lg:to-transparent" />
           <Spline scene="https://prod.spline.design/sMCP0g1ssiU-610i/scene.splinecode" />
           <div className="pointer-events-none absolute bottom-5 right-3 z-20 hidden border border-line/80 bg-void/60 px-4 py-3 backdrop-blur-sm sm:block lg:right-5">
             <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-beige-dim">Your scent</p>

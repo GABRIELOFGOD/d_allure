@@ -29,7 +29,7 @@ export default async function Home() {
       <Hero />
 
       <section className="border-b border-line bg-surface/50">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 divide-y divide-line px-6 py-5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 md:px-10 lg:px-16">
+        <div className="mx-auto grid max-w-360 grid-cols-1 divide-y divide-line px-6 py-5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 md:px-10 lg:px-16">
           {[
             ["01", "Personalized bottles", "Make a favorite scent your own"],
             ["02", "A scent to remember", "Find a fragrance that feels like you"],
@@ -46,11 +46,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="featured" className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-28 lg:px-16">
+      <section id="featured" className="mx-auto max-w-360 px-6 py-20 md:px-10 md:py-28 lg:px-16">
         <div className="mb-9 flex items-end justify-between gap-4 md:mb-12">
           <div>
             <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.22em] text-burgundy-bright">
-              Handpicked for you
+              Discover your signature scent
             </p>
             <h2 className="font-display text-4xl leading-none text-beige md:text-5xl">The signature edit</h2>
             <p className="mt-3 max-w-md text-xs leading-6 text-beige-dim md:text-sm">
@@ -86,7 +86,7 @@ export default async function Home() {
 
       {categories.length > 0 && (
         <section className="border-y border-line bg-surface/45">
-          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20 lg:px-16">
+          <div className="mx-auto max-w-360 px-6 py-16 md:px-10 md:py-20 lg:px-16">
           <div className="mb-8 flex items-end justify-between gap-4 md:mb-10">
             <div>
               <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.22em] text-burgundy-bright">Find your mood</p>
@@ -110,7 +110,7 @@ export default async function Home() {
                   className="object-cover opacity-50 transition duration-700 group-hover:scale-105 group-hover:opacity-70"
                   sizes="(max-width: 640px) 50vw, 33vw"
                 />
-                <span className="absolute inset-0 bg-gradient-to-t from-void/90 via-void/10 to-transparent" />
+                <span className="absolute inset-0 bg-linear-to-t from-void/90 via-void/10 to-transparent" />
                 <span className="relative flex w-full items-center justify-between font-display text-lg text-beige sm:text-2xl">
                   {cat.name}
                   <span className="flex h-8 w-8 items-center justify-center rounded-full border border-beige/35 font-sans text-sm transition-colors group-hover:border-beige group-hover:bg-beige group-hover:text-void">↗</span>
@@ -127,9 +127,10 @@ export default async function Home() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_120%,rgba(92,10,31,0.36),transparent_58%)]" />
           <div className="relative">
           <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.22em] text-burgundy-bright">A little more personal</p>
-          <h2 className="font-display text-4xl leading-none text-beige md:text-6xl">Make it unmistakably yours.</h2>
+          <h2 className="font-display text-4xl leading-none text-beige md:text-6xl">Make every bottle uniquely yours.</h2>
           <p className="mx-auto mb-8 mt-5 max-w-lg text-xs leading-6 text-beige-dim md:text-sm">
-            Choose a customizable bottle and add a name of your choosing—for yourself or someone special.
+            {/* Choose a customizable bottle and add a name of your choosing—for yourself or someone special. */}
+            Shop a scent that matches your vibe, weather you are treating yourself or choosing a thouhgtful gift for someone special.
           </p>
           <Link
             href="/shop"
