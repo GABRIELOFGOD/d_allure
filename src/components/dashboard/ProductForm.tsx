@@ -215,7 +215,7 @@ export default function ProductForm({ product }: { product?: Product }) {
       <button
         onClick={handleSave}
         disabled={saving}
-        className="bg-burgundy hover:bg-burgundy-bright text-white px-6 py-3 font-mono text-xs uppercase tracking-widest-plus flex items-center gap-2"
+        className="bg-burgundy hover:bg-burgundy-hover text-white px-6 py-3 font-mono text-xs uppercase tracking-widest-plus flex items-center gap-2"
       >
         {saving && <Loader2 size={14} className="animate-spin" />}
         {product ? "Save Changes" : "Create Product"}

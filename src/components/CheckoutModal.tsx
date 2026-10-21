@@ -117,7 +117,7 @@ export default function CheckoutModal({ onClose }: { onClose: () => void }) {
               href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-burgundy hover:bg-burgundy-bright text-white py-3.5 font-mono text-xs tracking-widest-plus uppercase transition-colors mb-3"
+              className="block w-full bg-burgundy hover:bg-burgundy-hover text-white py-3.5 font-mono text-xs tracking-widest-plus uppercase transition-colors mb-3"
             >
               Continue on WhatsApp to Pay
             </a>
@@ -181,7 +181,7 @@ export default function CheckoutModal({ onClose }: { onClose: () => void }) {
               <button
                 onClick={submitOrder}
                 disabled={submitting}
-                className="w-full bg-burgundy hover:bg-burgundy-bright text-white py-3.5 font-mono text-xs tracking-widest-plus uppercase transition-colors disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
+                className="w-full bg-burgundy hover:bg-burgundy-hover text-white py-3.5 font-mono text-xs tracking-widest-plus uppercase transition-colors disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
               >
                 {submitting && <Loader2 size={14} className="animate-spin" />}
                 Place Order

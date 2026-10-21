@@ -67,7 +67,7 @@ export default function AnnouncementsPage() {
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 bg-burgundy hover:bg-burgundy-bright text-white px-4 py-2.5 font-mono text-xs uppercase tracking-widest-plus"
+          className="flex items-center gap-2 bg-burgundy hover:bg-burgundy-hover text-white px-4 py-2.5 font-mono text-xs uppercase tracking-widest-plus"
         >
           <Plus size={14} /> New
         </button>
@@ -105,7 +105,7 @@ export default function AnnouncementsPage() {
           </FormField>
           <button
             onClick={create}
-            className="w-full bg-burgundy hover:bg-burgundy-bright text-white py-3 font-mono text-xs uppercase tracking-widest-plus mt-2"
+            className="w-full bg-burgundy hover:bg-burgundy-hover text-white py-3 font-mono text-xs uppercase tracking-widest-plus mt-2"
           >
             Add Announcement
           </button>

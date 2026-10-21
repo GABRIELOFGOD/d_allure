@@ -57,7 +57,7 @@ export default function Navbar() {
             <ShoppingBag size={19} />
             <span className="hidden font-mono text-[9px] uppercase tracking-[0.13em] sm:inline">Bag</span>
             {count > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-burgundy-bright px-1 font-mono text-[9px] text-white">
+              <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-burgundy-hover px-1 font-mono text-[9px] text-white">
                 {count}
               </span>
             )}

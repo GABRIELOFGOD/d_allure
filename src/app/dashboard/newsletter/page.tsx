@@ -106,7 +106,7 @@ export default function NewsletterPage() {
       <button
         onClick={send}
         disabled={sending}
-        className="flex items-center gap-2 bg-burgundy hover:bg-burgundy-bright text-white px-6 py-3 font-mono text-xs uppercase tracking-widest-plus"
+        className="flex items-center gap-2 bg-burgundy hover:bg-burgundy-hover text-white px-6 py-3 font-mono text-xs uppercase tracking-widest-plus"
       >
         {sending ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
         Send Newsletter

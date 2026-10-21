@@ -104,7 +104,7 @@ export default function ProductBuyBox({ product }: { product: Product }) {
       <button
         onClick={handleAddToCart}
         disabled={outOfStock}
-        className="w-full bg-burgundy py-4 font-mono text-[10px] uppercase tracking-[0.18em] text-white transition-colors hover:bg-burgundy-bright disabled:cursor-not-allowed disabled:bg-line disabled:text-beige-dim"
+        className="w-full bg-burgundy py-4 font-mono text-[10px] uppercase tracking-[0.18em] text-white transition-colors hover:bg-burgundy-hover disabled:cursor-not-allowed disabled:bg-line disabled:text-beige-dim"
       >
         {outOfStock ? "Out of stock" : "Add to bag"}
       </button>

@@ -90,7 +90,7 @@ export default function ReviewsSection({ productId, initialReviews }: { productI
           <button
             onClick={submitReview}
             disabled={submitting}
-            className="bg-burgundy hover:bg-burgundy-bright text-white py-3 font-mono text-xs tracking-widest-plus uppercase transition-colors flex items-center justify-center gap-2"
+            className="bg-burgundy hover:bg-burgundy-hover text-white py-3 font-mono text-xs tracking-widest-plus uppercase transition-colors flex items-center justify-center gap-2"
           >
             {submitting && <Loader2 size={14} className="animate-spin" />}
             Submit Review

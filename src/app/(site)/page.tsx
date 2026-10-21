@@ -134,7 +134,7 @@ export default async function Home() {
           </p>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-7 bg-burgundy px-6 py-4 font-mono text-[9px] uppercase tracking-[0.17em] text-white transition-colors hover:bg-burgundy-bright"
+            className="inline-flex items-center gap-7 bg-burgundy px-6 py-4 font-mono text-[9px] uppercase tracking-[0.17em] text-white transition-colors hover:bg-burgundy-hover"
           >
             Find your bottle <span aria-hidden="true">→</span>
           </Link>

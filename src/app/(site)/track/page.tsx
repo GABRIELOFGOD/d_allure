@@ -60,7 +60,7 @@ function TrackContent() {
         <button
           onClick={() => lookup(trackingId)}
           disabled={loading}
-          className="bg-burgundy hover:bg-burgundy-bright text-white px-5 flex items-center gap-2 font-mono text-xs tracking-widest-plus uppercase"
+          className="bg-burgundy hover:bg-burgundy-hover text-white px-5 flex items-center gap-2 font-mono text-xs tracking-widest-plus uppercase"
         >
           {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
           Track
@@ -100,12 +100,12 @@ function TrackContent() {
                 <div key={step} className="flex-1 flex flex-col items-center relative">
                   {i > 0 && (
                     <div
-                      className={`absolute top-1.5 right-1/2 w-full h-px ${i <= currentStepIndex ? "bg-burgundy-bright" : "bg-line"}`}
+                      className={`absolute top-1.5 right-1/2 w-full h-px ${i <= currentStepIndex ? "bg-burgundy-hover" : "bg-line"}`}
                     />
                   )}
                   <div
                     className={`relative z-10 w-3 h-3 rounded-full ${
-                      i <= currentStepIndex ? "bg-burgundy-bright" : "bg-line"
+                      i <= currentStepIndex ? "bg-burgundy-hover" : "bg-line"
                     }`}
                   />
                   <span

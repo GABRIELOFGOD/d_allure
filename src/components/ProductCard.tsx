@@ -43,7 +43,7 @@ export default function ProductCard({ product }: { product: Product }) {
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-void/35 via-transparent to-void/10" />
+          <div className="absolute inset-0 bg-linear-to-t from-void/35 via-transparent to-void/10" />
           <span className="absolute left-3 top-3 bg-void/75 px-2.5 py-1.5 font-mono text-[8px] uppercase tracking-[0.15em] text-beige backdrop-blur-sm">
             {badgeLabel}
           </span>
@@ -52,7 +52,7 @@ export default function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
       </Link>
-      <div className="flex min-h-[116px] flex-col justify-between pt-3.5">
+      <div className="flex min-h-29 flex-col justify-between pt-3.5">
         <Link href={`/product/${product.slug}`} className="block">
           {categoryName && (
             <p className="mb-1.5 font-mono text-[8px] uppercase tracking-[0.16em] text-beige-dim">{categoryName}</p>

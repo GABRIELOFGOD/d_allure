@@ -12,7 +12,7 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with D_ALLURE on WhatsApp"
-      className="fixed bottom-6 right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-burgundy hover:bg-burgundy-bright transition-colors shadow-lg shadow-black/40"
+      className="fixed bottom-6 right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-burgundy hover:bg-burgundy-hover transition-colors shadow-lg shadow-black/40"
     >
       <MessageCircle size={26} className="text-white" />
     </a>

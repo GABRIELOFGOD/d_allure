@@ -1,14 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --color-void: #100b0a;
-  --color-surface: #1b1211;
-  --color-surface-raised: #261918;
-  --color-line: #422727;
+  --color-void: #521616;
+  --color-surface: #3b1d1d;
+  --color-surface-raised: #4a2424;
+  --color-line: #75413d;
   --color-beige: #f1b686;
-  --color-beige-dim: #bd8c6b;
-  --color-burgundy: #521617;
-  --color-burgundy-bright: #812a2b;
+  --color-beige-dim: #dfad88;
+  --color-burgundy: #702120;
+  --color-burgundy-bright: #e4b08a;
+  --color-burgundy-hover: #812a2b;
   --color-white: #fff3e8;
 
   --font-display: var(--font-bodoni), "Times New Roman", serif;
@@ -25,6 +26,7 @@
   --color-beige-dim: var(--color-beige-dim);
   --color-burgundy: var(--color-burgundy);
   --color-burgundy-bright: var(--color-burgundy-bright);
+  --color-burgundy-hover: var(--color-burgundy-hover);
   --color-white: var(--color-white);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
@@ -40,9 +42,7 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(ellipse at 50% -20%, rgba(82, 22, 23, 0.2), transparent 42%),
-    var(--color-void);
+  background: var(--color-void);
   color: var(--color-beige);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;

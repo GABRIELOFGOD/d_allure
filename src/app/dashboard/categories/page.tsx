@@ -71,7 +71,7 @@ export default function CategoriesPage() {
         <h1 className="font-display text-3xl text-beige">Categories</h1>
         <button
           onClick={openCreate}
-          className="flex items-center gap-2 bg-burgundy hover:bg-burgundy-bright text-white px-4 py-2.5 font-mono text-xs uppercase tracking-widest-plus"
+          className="flex items-center gap-2 bg-burgundy hover:bg-burgundy-hover text-white px-4 py-2.5 font-mono text-xs uppercase tracking-widest-plus"
         >
           <Plus size={14} /> New Category
         </button>
@@ -127,7 +127,7 @@ export default function CategoriesPage() {
           </FormField>
           <button
             onClick={save}
-            className="w-full bg-burgundy hover:bg-burgundy-bright text-white py-3 font-mono text-xs uppercase tracking-widest-plus mt-2"
+            className="w-full bg-burgundy hover:bg-burgundy-hover text-white py-3 font-mono text-xs uppercase tracking-widest-plus mt-2"
           >
             Save Category
           </button>

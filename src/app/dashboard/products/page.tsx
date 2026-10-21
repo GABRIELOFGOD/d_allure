@@ -92,7 +92,7 @@ export default function ProductsListPage() {
           )}
           <Link
             href="/dashboard/products/new"
-            className="flex items-center gap-2 bg-burgundy px-4 py-2.5 font-mono text-xs uppercase tracking-widest-plus text-white hover:bg-burgundy-bright"
+            className="flex items-center gap-2 bg-burgundy px-4 py-2.5 font-mono text-xs uppercase tracking-widest-plus text-white hover:bg-burgundy-hover"
           >
             <Plus size={14} /> New Product
           </Link>

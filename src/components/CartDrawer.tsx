@@ -39,7 +39,7 @@ export default function CartDrawer() {
                   <Link
                     href="/shop"
                     onClick={() => setIsOpen(false)}
-                    className="mt-6 inline-flex items-center gap-3 bg-burgundy px-5 py-3 font-mono text-[9px] uppercase tracking-[0.15em] text-white transition-colors hover:bg-burgundy-bright"
+                    className="mt-6 inline-flex items-center gap-3 bg-burgundy px-5 py-3 font-mono text-[9px] uppercase tracking-[0.15em] text-white transition-colors hover:bg-burgundy-hover"
                   >
                     Explore the collection <ArrowRight size={13} />
                   </Link>
@@ -100,7 +100,7 @@ export default function CartDrawer() {
                 </div>
                 <button
                   onClick={() => setCheckoutOpen(true)}
-                  className="flex w-full items-center justify-between bg-burgundy px-5 py-4 font-mono text-[9px] uppercase tracking-[0.17em] text-white transition-colors hover:bg-burgundy-bright"
+                  className="flex w-full items-center justify-between bg-burgundy px-5 py-4 font-mono text-[9px] uppercase tracking-[0.17em] text-white transition-colors hover:bg-burgundy-hover"
                 >
                   Continue to checkout <ArrowRight size={15} />
                 </button>
