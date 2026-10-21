@@ -11,8 +11,6 @@
     "seed-test-catalog": "tsx scripts/seed-test-catalog.ts"
   },
   "dependencies": {
-    "@splinetool/react-spline": "^4.1.0",
-    "@splinetool/runtime": "^1.12.98",
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
     "date-fns": "^4.4.0",

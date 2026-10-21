@@ -130,7 +130,7 @@ export default async function Home() {
           <h2 className="font-display text-4xl leading-none text-beige md:text-6xl">Make every bottle uniquely yours.</h2>
           <p className="mx-auto mb-8 mt-5 max-w-lg text-xs leading-6 text-beige-dim md:text-sm">
             {/* Choose a customizable bottle and add a name of your choosing—for yourself or someone special. */}
-            Shop a scent that matches your vibe, weather you are treating yourself or choosing a thouhgtful gift for someone special.
+            Shop a scent that matches your vibe, whether you are treating yourself or choosing a thoughtful gift for someone special.
           </p>
           <Link
             href="/shop"
