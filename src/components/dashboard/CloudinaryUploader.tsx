@@ -12,7 +12,7 @@ interface Props {
 }
 
 export interface CloudinaryUploaderHandle {
-  uploadPendingFiles: () => Promise<void>;
+  uploadPendingFiles: () => Promise<string[]>;
 }
 
 const CloudinaryUploader = forwardRef<CloudinaryUploaderHandle, Props>(
@@ -41,8 +41,8 @@ const CloudinaryUploader = forwardRef<CloudinaryUploaderHandle, Props>(
     }
 
     // Upload pending files to Cloudinary
-    async function uploadPendingFiles() {
-      if (pendingFiles.length === 0) return;
+    async function uploadPendingFiles(): Promise<string[]> {
+      if (pendingFiles.length === 0) return urls;
 
       setUploading(true);
       try {
@@ -72,13 +72,12 @@ const CloudinaryUploader = forwardRef<CloudinaryUploaderHandle, Props>(
         previewUrls.forEach((url) => URL.revokeObjectURL(url));
 
         // Update with actual URLs
-        onChange(multiple ? [...urls, ...uploaded] : uploaded);
+        const uploadedUrls = multiple ? [...urls, ...uploaded] : uploaded;
+        onChange(uploadedUrls);
         setPendingFiles([]);
         setPreviewUrls([]);
         toast.success("Upload complete");
-      } catch (err) {
-        const message = err instanceof Error ? err.message : "Upload failed";
-        toast.error(message);
+        return uploadedUrls;
       } finally {
         setUploading(false);
       }
@@ -101,7 +100,7 @@ const CloudinaryUploader = forwardRef<CloudinaryUploaderHandle, Props>(
 
     const allItems = [
       ...previewUrls.map((url, i) => ({ url, i, isPending: true })),
-      ...urls.map((url, i) => ({ url, i: i + previewUrls.length, isPending: false })),
+      ...urls.map((url, i) => ({ url, i, isPending: false })),
     ];
 
     return (

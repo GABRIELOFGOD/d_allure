@@ -11,9 +11,12 @@ import { ArrowLeft, Check } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
-async function getProduct(slug: string) {
+async function getProduct(identifier: string) {
   await connectDB();
-  const product = await Product.findOne({ slug, active: true }).populate("category").lean();
+  const isId = /^[0-9a-f]{24}$/i.test(identifier);
+  const product = await Product.findOne(
+    isId ? { _id: identifier, active: true } : { slug: identifier, active: true }
+  ).populate("category").lean();
   if (!product) return null;
 
   const reviews = await Review.find({ product: (product as unknown as { _id: string })._id, approved: true })

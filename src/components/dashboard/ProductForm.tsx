@@ -86,8 +86,8 @@ export default function ProductForm({ product }: { product?: Product }) {
     setSaving(true);
     try {
       // Upload pending files first
-      await imageUploaderRef.current?.uploadPendingFiles();
-      await videoUploaderRef.current?.uploadPendingFiles();
+      const images = await imageUploaderRef.current?.uploadPendingFiles() ?? form.images;
+      const videos = await videoUploaderRef.current?.uploadPendingFiles() ?? form.videos;
 
       // Calculate original price if discount is applied
       const sellingPrice = Number(form.price);
@@ -101,8 +101,8 @@ export default function ProductForm({ product }: { product?: Product }) {
         price: form.hasDiscount ? originalPrice : sellingPrice,
         discountPrice: form.hasDiscount ? sellingPrice : undefined,
         discountAmount: form.hasDiscount ? discountAmount : undefined,
-        images: form.images,
-        videos: form.videos,
+        images,
+        videos,
         customizable: form.customizable,
         stock: Number(form.stock),
         featured: form.featured,
@@ -124,8 +124,8 @@ export default function ProductForm({ product }: { product?: Product }) {
       toast.success(product ? "Product updated" : "Product created");
       router.push("/dashboard/products");
       router.refresh();
-    } catch {
-      toast.error("Something went wrong");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
     } finally {
       setSaving(false);
     }

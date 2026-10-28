@@ -12,6 +12,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const hasDiscount = !!product.discountPrice && product.discountPrice < product.price;
   const { addItem } = useCart();
   const categoryName = typeof product.category === "object" ? product.category.name : "";
+  const productHref = `/product/${product._id}`;
   let badgeLabel = "D_ALLURE";
   if (product.stock <= 0) badgeLabel = "Sold out";
   else if (product.customizable) badgeLabel = "Make it yours";
@@ -34,7 +35,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="group min-w-0">
-      <Link href={`/product/${product.slug}`} className="block">
+      <Link href={productHref} className="block">
         <div className="relative aspect-[4/5] overflow-hidden bg-surface-raised">
           <Image
             src={product.images?.[0] || "/logo.png"}
@@ -53,7 +54,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </Link>
       <div className="flex min-h-29 flex-col justify-between pt-3.5">
-        <Link href={`/product/${product.slug}`} className="block">
+        <Link href={productHref} className="block">
           {categoryName && (
             <p className="mb-1.5 font-mono text-[8px] uppercase tracking-[0.16em] text-beige-dim">{categoryName}</p>
           )}
@@ -73,7 +74,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </Link>
         {product.customizable ? (
           <Link
-            href={`/product/${product.slug}`}
+            href={productHref}
             className="mt-3 flex items-center justify-between border-t border-line pt-2.5 font-mono text-[8px] uppercase tracking-[0.14em] text-beige-dim transition-colors hover:text-beige"
           >
             Personalize this scent <ArrowUpRight size={13} />
