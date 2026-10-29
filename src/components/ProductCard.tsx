@@ -12,7 +12,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const hasDiscount = !!product.discountPrice && product.discountPrice < product.price;
   const { addItem } = useCart();
   const categoryName = typeof product.category === "object" ? product.category.name : "";
-  const productHref = `/product/${product._id}`;
+  const productHref = `/product/${product.slug || product._id}`;
   let badgeLabel = "D_ALLURE";
   if (product.stock <= 0) badgeLabel = "Sold out";
   else if (product.customizable) badgeLabel = "Make it yours";
@@ -25,7 +25,7 @@ export default function ProductCard({ product }: { product: Product }) {
       productId: product._id,
       name: product.name,
       slug: product.slug,
-      image: product.images?.[0] || "",
+      image: product.images?.[0] || "/logo.png",
       price: hasDiscount ? product.discountPrice! : product.price,
       quantity: 1,
       customizable: false,

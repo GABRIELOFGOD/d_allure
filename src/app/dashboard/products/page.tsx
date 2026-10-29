@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import type { FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Plus, Pencil, Trash2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, Pencil, Search, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { formatNaira } from "@/lib/format";
 import type { Product } from "@/types";
@@ -17,12 +18,16 @@ export default function ProductsListPage() {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [searchInput, setSearchInput] = useState("");
+  const [search, setSearch] = useState("");
 
-  const load = useCallback(async (nextPage: number) => {
+  const load = useCallback(async (nextPage: number, query: string) => {
     setLoading(true);
     setLoadError(null);
     try {
-      const res = await fetch(`/api/products?page=${nextPage}&limit=${PAGE_SIZE}`, { cache: "no-store" });
+      const params = new URLSearchParams({ page: String(nextPage), limit: String(PAGE_SIZE) });
+      if (query) params.set("q", query);
+      const res = await fetch(`/api/products?${params}`, { cache: "no-store" });
       const data: unknown = await res.json().catch(() => null);
       if (!res.ok) {
         const message =
@@ -55,7 +60,7 @@ export default function ProductsListPage() {
   }, []);
 
   useEffect(() => {
-    void load(1);
+    void load(1, "");
   }, [load]);
 
   function toggleSelected(id: string) {
@@ -70,6 +75,13 @@ export default function ProductsListPage() {
     );
   }
 
+  function searchProducts(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const query = searchInput.trim();
+    setSearch(query);
+    void load(1, query);
+  }
+
   async function remove(id: string) {
     if (!confirm("Delete this product permanently?")) return;
     try {
@@ -79,7 +91,7 @@ export default function ProductsListPage() {
         throw new Error(data.error || "Couldn't delete product");
       }
       toast.success("Product deleted");
-      await load(1);
+      await load(1, search);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Couldn't delete product");
     }
@@ -99,7 +111,7 @@ export default function ProductsListPage() {
       if (!res.ok) throw new Error(data.error || "Couldn't delete selected products");
 
       toast.success(`${data.deletedCount} ${data.deletedCount === 1 ? "product" : "products"} deleted`);
-      await load(1);
+      await load(1, search);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Couldn't delete selected products");
     }
@@ -132,17 +144,38 @@ export default function ProductsListPage() {
         </div>
       </div>
 
+      <form onSubmit={searchProducts} className="mb-6 flex max-w-xl gap-2">
+        <label htmlFor="admin-product-search" className="sr-only">Search products</label>
+        <input
+          id="admin-product-search"
+          type="search"
+          maxLength={100}
+          value={searchInput}
+          onChange={(event) => setSearchInput(event.target.value)}
+          placeholder="Search products by name"
+          className="min-w-0 flex-1 border border-line bg-surface px-4 py-3 text-sm text-beige placeholder:text-beige-dim"
+        />
+        <button
+          type="submit"
+          className="flex items-center gap-2 bg-surface-raised px-4 py-3 font-mono text-xs uppercase tracking-wider text-beige hover:bg-burgundy"
+        >
+          <Search size={14} /> Search
+        </button>
+      </form>
+
       {loading ? (
         <p className="font-mono text-sm text-beige-dim">Loading…</p>
       ) : loadError ? (
         <div>
           <p className="font-mono text-sm text-beige-dim">{loadError}</p>
-          <button onClick={() => void load(page)} className="mt-3 font-mono text-xs text-beige underline">
+          <button onClick={() => void load(page, search)} className="mt-3 font-mono text-xs text-beige underline">
             Try again
           </button>
         </div>
       ) : products.length === 0 ? (
-        <p className="font-mono text-sm text-beige-dim">No products yet.</p>
+        <p className="font-mono text-sm text-beige-dim">
+          {search ? `No products found for “${search}”.` : "No products yet."}
+        </p>
       ) : (
         <div className="border border-line">
           <div className="flex items-center gap-3 border-b border-line bg-surface px-5 py-3">
@@ -199,7 +232,7 @@ export default function ProductsListPage() {
           </p>
           <div className="flex gap-2">
             <button
-              onClick={() => void load(page - 1)}
+              onClick={() => void load(page - 1, search)}
               disabled={page === 1}
               aria-label="Previous products page"
               className="border border-line p-2 text-beige-dim hover:text-beige disabled:cursor-not-allowed disabled:opacity-40"
@@ -207,7 +240,7 @@ export default function ProductsListPage() {
               <ChevronLeft size={16} />
             </button>
             <button
-              onClick={() => void load(page + 1)}
+              onClick={() => void load(page + 1, search)}
               disabled={page * PAGE_SIZE >= total}
               aria-label="Next products page"
               className="border border-line p-2 text-beige-dim hover:text-beige disabled:cursor-not-allowed disabled:opacity-40"

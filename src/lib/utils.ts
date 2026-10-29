@@ -16,6 +16,10 @@ export function slugify(text: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+export function escapeRegex(text: string) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 export function generateTrackingId() {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let random = "";

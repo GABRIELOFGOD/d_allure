@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 import { requireAdmin } from "@/lib/auth";
-import { slugify, randomDiscountPercent, applyDiscount } from "@/lib/utils";
+import { slugify, randomDiscountPercent, applyDiscount, escapeRegex } from "@/lib/utils";
 
 export async function GET(req: NextRequest) {
   try {
@@ -10,11 +10,13 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const category = searchParams.get("category");
     const featured = searchParams.get("featured");
+    const search = searchParams.get("q")?.trim().slice(0, 100);
     const admin = requireAdmin(req);
 
     const query: Record<string, unknown> = admin ? {} : { active: true };
     if (category) query.category = category;
     if (featured) query.featured = true;
+    if (search) query.name = { $regex: escapeRegex(search), $options: "i" };
 
     if (searchParams.has("page") || searchParams.has("limit")) {
       const requestedPage = Number.parseInt(searchParams.get("page") || "1", 10);

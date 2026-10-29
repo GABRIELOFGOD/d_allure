@@ -16,7 +16,7 @@ Everything is in `.env.local` already, with your MongoDB URI and WhatsApp number
 - `GMAIL_USER`, `GMAIL_APP_PASSWORD` — a Gmail address and a Google **App Password** (not your normal Gmail password — generate one at https://myaccount.google.com/apppasswords with 2FA enabled).
 - `JWT_SECRET` — replace with any long random string.
 - `ADMIN_EMAIL` / `ADMIN_PASSWORD` — the default admin login created by the seed script below. Change the password from the dashboard after your first login.
-- `NEXT_PUBLIC_SITE_URL` — set to your real domain once deployed (used in emails).
+- `NEXT_PUBLIC_SITE_URL` — set to your real domain once deployed (used in emails, canonical metadata, and the sitemap).
 
 `WHATSAPP_NUMBER` / `NEXT_PUBLIC_WHATSAPP_NUMBER` are already set to +2349039194587 — change both in `.env.local` any time.
 
