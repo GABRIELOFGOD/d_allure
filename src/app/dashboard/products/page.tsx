@@ -1,29 +1,62 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, Pencil, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { formatNaira } from "@/lib/format";
 import type { Product } from "@/types";
+
+const PAGE_SIZE = 10;
 
 export default function ProductsListPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
-  async function load() {
+  const load = useCallback(async (nextPage: number) => {
     setLoading(true);
-    const res = await fetch("/api/products");
-    setProducts(await res.json());
-    setSelectedIds([]);
-    setLoading(false);
-  }
+    setLoadError(null);
+    try {
+      const res = await fetch(`/api/products?page=${nextPage}&limit=${PAGE_SIZE}`, { cache: "no-store" });
+      const data: unknown = await res.json().catch(() => null);
+      if (!res.ok) {
+        const message =
+          typeof data === "object" && data !== null && "error" in data && typeof data.error === "string"
+            ? data.error
+            : `Couldn't load products (HTTP ${res.status})`;
+        throw new Error(message);
+      }
+      if (
+        typeof data !== "object" ||
+        data === null ||
+        !("products" in data) ||
+        !Array.isArray(data.products) ||
+        !("total" in data) ||
+        typeof data.total !== "number"
+      ) {
+        throw new Error("The products response was invalid");
+      }
+      setProducts(data.products);
+      setTotal(data.total);
+      setPage(nextPage);
+      setSelectedIds([]);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Couldn't load products";
+      setLoadError(message);
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    load();
-  }, []);
+    void load(1);
+  }, [load]);
 
   function toggleSelected(id: string) {
     setSelectedIds((selected) =>
@@ -46,7 +79,7 @@ export default function ProductsListPage() {
         throw new Error(data.error || "Couldn't delete product");
       }
       toast.success("Product deleted");
-      await load();
+      await load(1);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Couldn't delete product");
     }
@@ -66,7 +99,7 @@ export default function ProductsListPage() {
       if (!res.ok) throw new Error(data.error || "Couldn't delete selected products");
 
       toast.success(`${data.deletedCount} ${data.deletedCount === 1 ? "product" : "products"} deleted`);
-      await load();
+      await load(1);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Couldn't delete selected products");
     }
@@ -101,6 +134,13 @@ export default function ProductsListPage() {
 
       {loading ? (
         <p className="font-mono text-sm text-beige-dim">Loading…</p>
+      ) : loadError ? (
+        <div>
+          <p className="font-mono text-sm text-beige-dim">{loadError}</p>
+          <button onClick={() => void load(page)} className="mt-3 font-mono text-xs text-beige underline">
+            Try again
+          </button>
+        </div>
       ) : products.length === 0 ? (
         <p className="font-mono text-sm text-beige-dim">No products yet.</p>
       ) : (
@@ -110,11 +150,11 @@ export default function ProductsListPage() {
               type="checkbox"
               checked={selectedIds.length === products.length}
               onChange={toggleAllSelected}
-              aria-label={selectedIds.length === products.length ? "Deselect all products" : "Select all products"}
+              aria-label={selectedIds.length === products.length ? "Deselect all products on this page" : "Select all products on this page"}
               className="accent-burgundy-bright"
             />
             <span className="font-mono text-[9px] uppercase tracking-wider text-beige-dim">
-              {selectedIds.length === products.length ? "All products selected" : "Select all products"}
+              {selectedIds.length === products.length ? "All products on this page selected" : "Select all on this page"}
             </span>
           </div>
           {products.map((p) => (
@@ -149,6 +189,32 @@ export default function ProductsListPage() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {!loading && !loadError && total > PAGE_SIZE && (
+        <div className="mt-5 flex items-center justify-between">
+          <p className="font-mono text-xs text-beige-dim">
+            Showing {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, total)} of {total} products
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={() => void load(page - 1)}
+              disabled={page === 1}
+              aria-label="Previous products page"
+              className="border border-line p-2 text-beige-dim hover:text-beige disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              onClick={() => void load(page + 1)}
+              disabled={page * PAGE_SIZE >= total}
+              aria-label="Next products page"
+              className="border border-line p-2 text-beige-dim hover:text-beige disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
         </div>
       )}
     </div>

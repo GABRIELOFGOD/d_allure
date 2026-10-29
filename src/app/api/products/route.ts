@@ -5,18 +5,35 @@ import { requireAdmin } from "@/lib/auth";
 import { slugify, randomDiscountPercent, applyDiscount } from "@/lib/utils";
 
 export async function GET(req: NextRequest) {
-  await connectDB();
-  const { searchParams } = new URL(req.url);
-  const category = searchParams.get("category");
-  const featured = searchParams.get("featured");
-  const admin = requireAdmin(req);
+  try {
+    await connectDB();
+    const { searchParams } = new URL(req.url);
+    const category = searchParams.get("category");
+    const featured = searchParams.get("featured");
+    const admin = requireAdmin(req);
 
-  const query: Record<string, unknown> = admin ? {} : { active: true };
-  if (category) query.category = category;
-  if (featured) query.featured = true;
+    const query: Record<string, unknown> = admin ? {} : { active: true };
+    if (category) query.category = category;
+    if (featured) query.featured = true;
 
-  const products = await Product.find(query).populate("category").sort({ createdAt: -1 });
-  return NextResponse.json(products);
+    if (searchParams.has("page") || searchParams.has("limit")) {
+      const requestedPage = Number.parseInt(searchParams.get("page") || "1", 10);
+      const requestedLimit = Number.parseInt(searchParams.get("limit") || "10", 10);
+      const page = Number.isFinite(requestedPage) ? Math.max(1, requestedPage) : 1;
+      const limit = Number.isFinite(requestedLimit) ? Math.min(50, Math.max(1, requestedLimit)) : 10;
+      const [products, total] = await Promise.all([
+        Product.find(query).populate("category").sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit),
+        Product.countDocuments(query),
+      ]);
+      return NextResponse.json({ products, total, page, totalPages: Math.ceil(total / limit) });
+    }
+
+    const products = await Product.find(query).populate("category").sort({ createdAt: -1 });
+    return NextResponse.json(products);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Something went wrong";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest) {

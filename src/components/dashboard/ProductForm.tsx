@@ -99,6 +99,7 @@ export default function ProductForm({ product }: { product?: Product }) {
         description: form.description,
         category: form.category,
         price: form.hasDiscount ? originalPrice : sellingPrice,
+        hasDiscount: form.hasDiscount,
         discountPrice: form.hasDiscount ? sellingPrice : undefined,
         discountAmount: form.hasDiscount ? discountAmount : undefined,
         images,
@@ -117,8 +118,12 @@ export default function ProductForm({ product }: { product?: Product }) {
         body: JSON.stringify(payload),
       });
       if (!res.ok) {
-        const data = await res.json();
-        toast.error(data.error || "Couldn't save product");
+        const data: unknown = await res.json().catch(() => null);
+        const message =
+          typeof data === "object" && data !== null && "error" in data && typeof data.error === "string"
+            ? data.error
+            : `Couldn't save product (HTTP ${res.status})`;
+        toast.error(message);
         return;
       }
       toast.success(product ? "Product updated" : "Product created");
