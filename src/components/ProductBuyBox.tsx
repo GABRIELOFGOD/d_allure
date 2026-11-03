@@ -32,7 +32,6 @@ export default function ProductBuyBox({ product }: { product: Product }) {
     addItem({
       productId: product._id,
       name: product.name,
-      slug: product.slug,
       image: product.images?.[0] || "",
       price: unitPrice,
       quantity,

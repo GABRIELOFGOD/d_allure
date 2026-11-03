@@ -14,12 +14,11 @@ import { ArrowLeft, Check } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
-const getProduct = cache(async (identifier: string) => {
+const getProduct = cache(async (id: string) => {
+  if (!/^[0-9a-f]{24}$/i.test(id)) return null;
+
   await connectDB();
-  const isId = /^[0-9a-f]{24}$/i.test(identifier);
-  const product = await Product.findOne(
-    isId ? { _id: identifier, active: true } : { slug: identifier, active: true }
-  ).populate("category").lean();
+  const product = await Product.findOne({ _id: id, active: true }).populate("category").lean();
   if (!product) return null;
 
   const reviews = await Review.find({ product: (product as unknown as { _id: string })._id, approved: true })
@@ -35,10 +34,10 @@ const getProduct = cache(async (identifier: string) => {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const data = await getProduct(slug);
+  const { id } = await params;
+  const data = await getProduct(id);
   if (!data) {
     return {
       title: "Product not found",
@@ -49,7 +48,7 @@ export async function generateMetadata({
   const { product } = data;
   const description = product.description.replace(/\s+/g, " ").trim().slice(0, 160);
   const image = absoluteUrl(product.images?.find(Boolean) || "/logo.png");
-  const url = absoluteUrl(`/product/${product.slug}`);
+  const url = absoluteUrl(`/product/${product._id}`);
 
   return {
     title: product.name,
@@ -72,16 +71,16 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const data = await getProduct(slug);
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const data = await getProduct(id);
   if (!data) notFound();
 
   const { product, reviews } = data;
   const categoryName = typeof product.category === "object" ? product.category.name : "";
   const productImages = product.images?.filter(Boolean) || [];
   const galleryImages = productImages.length > 0 ? productImages : ["/logo.png"];
-  const url = absoluteUrl(`/product/${product.slug}`);
+  const url = absoluteUrl(`/product/${product._id}`);
   const price = product.discountPrice || product.price;
   const jsonLd = {
     "@context": "https://schema.org",

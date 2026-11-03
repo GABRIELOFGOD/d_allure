@@ -191,25 +191,24 @@ async function main() {
 
     const operations = await Promise.all(
       catalog.map(async (item, index) => {
-        const slug = `test-${slugify(item.name)}`;
-        const imagePath = `${PUBLIC_ASSET_DIRECTORY}/${slug}.svg`;
+        const artworkName = `test-${slugify(item.name)}`;
+        const imagePath = `${PUBLIC_ASSET_DIRECTORY}/${artworkName}.svg`;
         const category = categories.find((entry) => entry.slug === item.category);
         const categoryId = categoryIds.get(item.category);
         if (!category || !categoryId) throw new Error(`Missing category for ${item.name}`);
 
         await writeFile(
-          path.join(ASSET_DIRECTORY, `${slug}.svg`),
+          path.join(ASSET_DIRECTORY, `${artworkName}.svg`),
           createProductArtwork(item.name, category.name, index),
           "utf8"
         );
 
         return {
           updateOne: {
-            filter: { slug },
+            filter: { name: `TEST — ${item.name}`, category: categoryId },
             update: {
               $setOnInsert: {
                 name: `TEST — ${item.name}`,
-                slug,
                 description: "Test catalog listing. Replace this with D_ALLURE's verified scent notes and product details before launch.",
                 category: categoryId,
                 price: PRICE_NAIRA,

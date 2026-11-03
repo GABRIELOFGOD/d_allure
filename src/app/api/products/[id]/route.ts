@@ -2,19 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 import { requireAdmin } from "@/lib/auth";
-import { slugify, applyDiscount } from "@/lib/utils";
-
-async function findProduct(id: string) {
-  await connectDB();
-  const isSlug = !id.match(/^[0-9a-fA-F]{24}$/);
-  return isSlug
-    ? Product.findOne({ slug: id, active: true }).populate("category")
-    : Product.findById(id).populate("category");
-}
+import { applyDiscount } from "@/lib/utils";
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const product = await findProduct(id);
+  if (!/^[0-9a-f]{24}$/i.test(id)) {
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
+  }
+  await connectDB();
+  const product = await Product.findById(id).populate("category");
   if (!product) return NextResponse.json({ error: "Product not found" }, { status: 404 });
   return NextResponse.json(product);
 }
@@ -25,6 +21,9 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
   try {
     const { id } = await params;
+    if (!/^[0-9a-f]{24}$/i.test(id)) {
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    }
     const parsedBody: unknown = await req.json().catch(() => null);
     if (typeof parsedBody !== "object" || parsedBody === null || Array.isArray(parsedBody)) {
       return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
@@ -32,8 +31,6 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     const body = parsedBody as Record<string, unknown>;
     const update: Record<string, unknown> = { ...body };
     delete update.hasDiscount;
-
-    if (typeof body.name === "string" && body.name) update.slug = slugify(body.name);
 
     if (body.hasDiscount === false) {
       delete update.discountPrice;
@@ -62,6 +59,9 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { id } = await params;
+  if (!/^[0-9a-f]{24}$/i.test(id)) {
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
+  }
   await connectDB();
   await Product.findByIdAndDelete(id);
   return NextResponse.json({ ok: true });

@@ -9,7 +9,6 @@ export interface Category {
 export interface Product {
   _id: string;
   name: string;
-  slug: string;
   description: string;
   category: Category | string;
   price: number;
@@ -27,7 +26,6 @@ export interface Product {
 export interface CartItem {
   productId: string;
   name: string;
-  slug: string;
   image: string;
   price: number;
   quantity: number;

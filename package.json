@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "create-admin": "tsx scripts/create-admin.ts",
-    "seed-test-catalog": "tsx scripts/seed-test-catalog.ts"
+    "seed-test-catalog": "tsx scripts/seed-test-catalog.ts",
+    "migrate-product-ids": "tsx scripts/migrate-product-ids.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

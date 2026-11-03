@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 import { requireAdmin } from "@/lib/auth";
-import { slugify, randomDiscountPercent, applyDiscount, escapeRegex } from "@/lib/utils";
+import { randomDiscountPercent, applyDiscount, escapeRegex } from "@/lib/utils";
 
 export async function GET(req: NextRequest) {
   try {
@@ -72,7 +72,6 @@ export async function POST(req: NextRequest) {
 
     const product = await Product.create({
       name: body.name,
-      slug: slugify(body.name),
       description: body.description,
       category: body.category,
       price: body.price,

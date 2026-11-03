@@ -58,6 +58,7 @@ Any Node host works (Vercel, DigitalOcean App Platform, etc.). Set the same envi
 
 ## Notes
 
+- Product pages use MongoDB IDs instead of slugs. On an existing database, run `npm run migrate-product-ids` once to remove legacy product slug fields and indexes.
 - No customer login/signup exists anywhere by design — carts live in `localStorage`, and orders are tracked by a generated tracking ID (e.g. `DA-7F3K2Q`) rather than an account.
 - Product discounts: toggle "Apply Discount" on a product and either set a percent or leave it blank for a random 5–40% discount.
 - Reviews require the buyer's order tracking ID and confirm the product was actually in that order before allowing a review; new reviews are hidden until approved in the dashboard.

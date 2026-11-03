@@ -3,7 +3,6 @@ import { Schema, models, model, Types } from "mongoose";
 export interface IProduct {
   _id: string;
   name: string;
-  slug: string;
   description: string;
   category: Types.ObjectId;
   price: number;
@@ -22,7 +21,6 @@ export interface IProduct {
 const ProductSchema = new Schema<IProduct>(
   {
     name: { type: String, required: true, trim: true },
-    slug: { type: String, required: true, unique: true, lowercase: true },
     description: { type: String, required: true },
     category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
     price: { type: Number, required: true },
