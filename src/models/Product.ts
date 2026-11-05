@@ -1,4 +1,5 @@
 import { Schema, models, model, Types } from "mongoose";
+import "./Category";
 
 export interface IProduct {
   _id: string;

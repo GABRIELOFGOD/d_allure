@@ -31,6 +31,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     const body = parsedBody as Record<string, unknown>;
     const update: Record<string, unknown> = { ...body };
     delete update.hasDiscount;
+    delete update.slug;
 
     if (body.hasDiscount === false) {
       delete update.discountPrice;
